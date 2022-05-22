@@ -4,7 +4,7 @@ This is a software in development that aims to help users keep track of their mo
 > # How to install the project?
  1. First of all, make sure you have **PYTHON installed** in your pc. `Download it here: https://www.python.org/downloads/`
  2. Make sure **python virtualenv is installed** in your system. To check if its installed run `virtualenv --version` in CMD. If you see the virtualenv version then you have it already. If not, run `pip install virtualenv` in CMD.
- 3. Open CMD and **change directory to where this project is**. Then type `makeenv` and hit enter. This will make the virtual environment.
+ 3. Open CMD and **change directory to this project**. Then type `makeenv` and hit enter. This will make the virtual environment.
  4. After, type `env` and hit enter. It will then activate the virtual environment.
  5. Once you're CMD is in virtual environment, type `installreq` then hit enter. It will install necessary files to run the application. Don't worry as requisite files will only be installed inside the venv folder in the project folder.
  7. Once done, **MAKE SURE XAMPP IS RUNNING** and type `run` to make use of the application.
