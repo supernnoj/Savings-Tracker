@@ -8,5 +8,11 @@ This is a software in development that aims to help users keep track of their mo
  4. After, type `env` and hit enter. It will then activate the virtual environment.
  5. Once you're CMD is in virtual environment, type `installreq` then hit enter. It will install necessary files to run the application. Don't worry as requisite files will only be installed inside the venv folder in the project folder.
  7. Once done, **MAKE SURE XAMPP IS RUNNING** and you can now type `run` to make use of the application.
+ 8. Done.
  
  ### Note: After installation, everytime you want to run the project, make sure env is activated.
+ > If unsure, see detailed insructions below.
+ > 1. Make sure XAMPP is running.
+ > 2. Open CMD and change directory to project folder.
+ > 3. Type `env` then hit enter
+ > 4. Type `run` then hit enter
