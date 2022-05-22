@@ -1,0 +1,36 @@
+[
+    { 
+        "user_login": {
+            "username": "username",
+            "password": "password",
+            "email": "email"
+        },
+        "user_profile": {
+            "fname": "fname",
+            "mi": "mi",
+            "lname": "lname",
+            "age": "age",
+            "birthday": "birthday"
+        },
+        "bank_acc":
+        {
+            "email": "email",
+            "cash_type": "cash_type",
+            "cash_bal": "cash_bal"
+        },
+        "logs":
+        {
+            "email": "email",
+            "cash_in": "cash_in",
+            "cash_out": "cash_out",
+            "cash_type": "cash_type",
+            "cash_type_before_bal": "cash_type_before_bal",
+            "cash_type_after_bal": "cash_type_after_bal",
+            "total_funds_before": "total_funds_before",
+            "total_funds_after": "total_funds_after",
+            "date": "date",
+            "time": "time",
+            "note": "note"
+        }
+    }
+]
