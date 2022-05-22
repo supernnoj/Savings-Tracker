@@ -1,5 +1,5 @@
 # SAVINGS TRACKER
-This is a software in development that aims to help users keep track of their money and savings by helping them keep record of their credits and debits and save their transactions to logs for their future review.
+This is a software in development that aims to help users keep track of their money and savings by helping them keep record of their credits and debits and save their transactions for their future review.
 <br>
 > # How to install the project?
  1. First of all, make sure you have **PYTHON installed** in your pc. `Download it here: https://www.python.org/downloads/`
