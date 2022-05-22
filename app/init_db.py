@@ -13,7 +13,7 @@ try:
 
     Q = _db.cursor()
 
-    Q.execute("drop database userdata") # to drop database : only use if necessary
+    #Q.execute("drop database userdata") # to drop database : only use if necessary
 
     db_exists = False # db exist boolean
     print(" LOCATING DATABASE")
