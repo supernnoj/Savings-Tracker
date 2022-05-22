@@ -10,7 +10,7 @@ This is a software in development that aims to help users keep track of their mo
  7. Once done, **MAKE SURE XAMPP IS RUNNING** and you can now type `run` to make use of the application.
  8. Done.
  
- ### Note: After installation, everytime you want to run the project, make sure env is activated.
+ ### Note: After installation, everytime you want to run the project, make sure xampp is running and env is activated.
  > If unsure, see detailed insructions below.
  > 1. Make sure XAMPP is running.
  > 2. Open CMD and change directory to project folder.
