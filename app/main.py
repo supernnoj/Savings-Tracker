@@ -24,7 +24,7 @@ def destroy(m):
 try:
     print('\n RETRIEVING TOS')
     to_file = os.getcwd() + "\\app\\" # to get current directory and set path to app folder
-    with open(to_file + "tos.json", "r") as open_tos: # to open json file
+    with open(to_file + "script.json", "r") as open_tos: # to open json file
         get_tos = json.load(open_tos)
         for x in get_tos:
             x_tos = x['tos']
