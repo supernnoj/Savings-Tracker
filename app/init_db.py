@@ -4,6 +4,8 @@ import mysql.connector
 import json
 import os
 
+#import main # to delete : just to check if main file is executing
+
 try:
     print('\n ESTABLISHING CONNECTIONS')
     # to connect to xampp/local server
@@ -91,6 +93,7 @@ try:
 
     # to run app
     print("\n RUNNING APPLICATION")
+    import main # this will call main.py
 
 except:
     print("")
