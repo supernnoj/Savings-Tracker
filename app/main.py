@@ -10,8 +10,8 @@ root  = Tk()
 root.title('Savings Tracker')
 # to set window size
 root.geometry("740x390") # orig window 700x350
-#to make window non-resizable
-root.resizable(False, False)
+# to make window non-resizable
+root.resizable(False, False) # set to true to make window resizable
 
 def destroy(m):
     tkinter.messagebox.showinfo('Terms of Service', m)
