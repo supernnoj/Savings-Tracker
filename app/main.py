@@ -10,7 +10,7 @@ root  = Tk()
 root.title('Savings Tracker')
 # to set window size
 root.geometry("740x390") # orig window 700x350
-#to make window unresizeable
+#to make window non-resizable
 root.resizable(False, False)
 
 def destroy(m):
