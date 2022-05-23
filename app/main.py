@@ -15,17 +15,21 @@ root.resizable(False, False) # set to true to make window resizable
 
 def destroy(m):
     tkinter.messagebox.showinfo('Terms of Service', m)
+    print(' TOS ACCEPTED')
     root.destroy()
+    print('\n LOADING LOGIN PAGE')
     import login
 
 # terms of service
 try:
+    print('\n RETRIEVING TOS')
     to_file = os.getcwd() + "\\app\\" # to get current directory and set path to app folder
     with open(to_file + "tos.json", "r") as open_tos: # to open json file
         get_tos = json.load(open_tos)
         for x in get_tos:
             x_tos = x['tos']
     # to create label
+    print(' WAITING FOR ACCEPT TOS')
     _w_s_01 = Label(root,text="").pack(side=TOP,pady=20) # blank label to serve as divider
     _title = Label(root,text=x_tos['title'],font=("Arial",18,"bold"),).pack(side=TOP,pady=12) # orig font 17
     _tos = Label(root,text=x_tos['tos'],font=("Arial",10),).pack(side=TOP,pady=1) # orig font 10
@@ -33,7 +37,7 @@ try:
     _accept = Button(root,text="ACCEPT TERMS OF SERVICE",font=("Arial", 10),command=lambda m="You accepted terms of service": destroy(m)).pack(side=TOP,pady=30) # orig font 9 : pady 30
 except:
     for x in range(0,5):
-        print(" ERROR: TOS.JSON COULDN'T BE FOUND. PLEASE CHECK IF EXIST IN APP FOLDER")
+        print("\n ERROR: TOS.JSON COULDN'T BE FOUND. PLEASE CHECK IF EXIST IN APP FOLDER")
 
 # to run in loop
 root.mainloop()
