@@ -19,7 +19,7 @@ installenv
 ```
 3. Install prerequisite files.
 ```cmd
-installts
+installst
 ```
 4. Run XAMPP Control Panel and make sure `Apache` & `MySQL` is running.
 5. Run the application
