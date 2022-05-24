@@ -1,6 +1,6 @@
 # Savings Tracker
 
-This is a software in development that aims that will help users manage their money and/or savings by keeping track of their credit and debit transactions for future review.
+This is a software in development that will help users manage their money and/or savings by keeping track of their credit and debit transactions for future review.
 
 | [**View Code**](https://github.com/jonncrs/Savings-Tracker) |
 |--------------------------------------------|
