@@ -15,11 +15,11 @@ This is a software in development that will help users manage their money and/or
 1. Run command prompt and change directory to project folder.
 2. Install virtual environment.
 ```cmd
-installenv
+setup
 ```
 3. Install prerequisite files.
 ```cmd
-installst
+install
 ```
 4. Run XAMPP Control Panel and make sure `Apache` & `MySQL` is running.
 5. Run the application
