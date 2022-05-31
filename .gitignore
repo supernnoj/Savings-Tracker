@@ -2,5 +2,3 @@ venv/
 app/__pycache__/
 *.pyc
 *.pyc
-app/__pycache__/login.cpython-310.pyc
-app/__pycache__/main.cpython-310.pyc
