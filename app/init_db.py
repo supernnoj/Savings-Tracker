@@ -1,10 +1,9 @@
 from sqlite3 import connect
 from webbrowser import get
+from PIL import ImageTk, Image
 import mysql.connector
 import json
 import os
-
-#import main # to delete : just to check if main file is executing
 
 try:
     print('\n ESTABLISHING CONNECTIONS')
@@ -93,7 +92,7 @@ try:
 
     # to run app
     print("\n RUNNING APPLICATION")
-    import main # this will call main.py
+    import tos # this will call main.py
 
 except:
     print("")

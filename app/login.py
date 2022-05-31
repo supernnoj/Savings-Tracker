@@ -1,22 +1,26 @@
 from operator import is_
 from tkinter import *
+from PIL import ImageTk, Image
 import tkinter.messagebox
 import json
 import os
 
-# to create window
+# create window
 root  = Tk()
-# to change window title
+# window title
 root.title('Savings Tracker')
-# to set window size
-root.geometry("740x390") # orig window 700x350
-# to make window non-resizable
+# window size
+root.geometry("800x500") # orig window 700x350
+# window non-resizable
 root.resizable(False, False) # set to true to make window resizable
+# define background image
+bg = PhotoImage(file="app/res/login.png")
 
 print(' LOGIN PAGE LOADED')
 
-# to create label
-_login = Label(root,text="login window",font=("Arial",17,"bold"),).pack(side=TOP,pady=12)
+# create label
+_bg = Label(root, image=bg).place(x=0, y=0, relwidth=1, relheight=1)
+#_login = Label(root,text="login window",font=("Arial",17,"bold"),).pack(side=TOP,pady=12)
 
 # to run in loop
 root.mainloop()
