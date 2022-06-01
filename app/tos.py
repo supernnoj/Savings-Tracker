@@ -1,36 +1,43 @@
-from operator import is_
-from re import I
 from tkinter import *
 import tkinter.messagebox
 
-# to create window
-root  = Tk()
-# to change window title
-root.title('Savings Tracker')
-# to set window size
-root.geometry("740x390") # orig window 700x350
-# to make window non-resizable
-root.resizable(False, False) # set to true to make window resizable
-# define background image
-bg = PhotoImage(file="app/res/tos.png")
-_bg = Label(root, image=bg).place(x=0, y=0, relwidth=1, relheight=1)
+isOK = False
 
-def destroy(m):
-    tkinter.messagebox.showinfo('Terms of Service', m)
-    print(' TOS ACCEPTED')
-    root.destroy()
-    print('\n LOADING LOGIN PAGE')
-    import login
+class tos():
 
-# terms of service
-get_accept_button = PhotoImage(file='app/res/accept.png')
-bg_button = Label(image=get_accept_button)
+    def __init__():
 
-print('\n RETRIEVING TOS')
+        def main():
 
-# to create label
-print(' WAITING FOR ACCEPT TOS')
-_accept = Button(root,image=get_accept_button,font=("Arial", 10),borderwidth=0,bg='white',command=lambda m="You accepted terms of service": destroy(m)).pack(side=BOTTOM,pady=60) # orig font 9 : pady 30
+            root  = Tk()
+            root.title(f'Savings Tracker')
+            root.geometry(f'740x390')
+            root.resizable(False, False)
+            getbg = PhotoImage(file="app/res/tos.png")
+            setbg = Label(root, image=getbg).place(x=0, y=0, relwidth=1, relheight=1)
+            getbutton = PhotoImage(file='app/res/accept.png')
+            setbutton = Label(image=getbutton)
 
-# to run in loop
-root.mainloop()
+            """def on_click(text):
+                tkinter.messagebox.OK("Button label", text)
+                global isOK 
+                isOK = True"""
+
+            def onClick(text):
+                tkinter.messagebox.showinfo("Terms of Service", text)
+                global isOK 
+                isOK = True
+                root.destroy()
+
+            #-! button = Button(root,image=getbutton,borderwidth=0,bg='white',command=lambda: on_click("Hi")).pack(side=BOTTOM, pady=60)
+
+            button = Button(root, image=getbutton, borderwidth=0,
+                command=lambda: onClick("You accepted Terms of Service"))
+            button.pack(side=BOTTOM, pady=60)
+
+            root.mainloop()
+
+        main()
+
+        if isOK:
+            return True
