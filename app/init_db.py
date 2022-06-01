@@ -27,7 +27,7 @@ class database():
             for exist_db in Q:
                 if str(exist_db) == "('userdata',)":
                     # if exist
-                        print(" DATABASE FOUND")
+                        print(" FOUND DATABASE")
                         db_exists = True
             # if db not exist
             if db_exists == False: # !UPDATE ALWAYS SET TO FALSE
