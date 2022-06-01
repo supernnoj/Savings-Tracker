@@ -31,11 +31,6 @@
             "date": "date",
             "time": "time",
             "note": "note"
-        },
-        "setup":
-        {
-            "email": "email",
-            "new": 1
         }
     }
 ]

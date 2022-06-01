@@ -42,6 +42,10 @@ class database():
                     try:
                         to_file = os.getcwd() + "\\app\\" # get current directory and set path to app folder
                         print(" LOCATING DATABASE CONFIGURATIONS")
+                        Q_active = f"CREATE TABLE active (id INT AUTO_INCREMENT PRIMARY KEY, email TEXT)"
+                        Q.execute(Q_active) # run query
+                        Q_setup = f"CREATE TABLE setup (id INT AUTO_INCREMENT PRIMARY KEY, email TEXT,  new INT)"
+                        Q.execute(Q_setup) # run query
                         with open(to_file + "db_fields.json", "r") as open_tables: # open json file
                             print(" APPLYING DATABASE CONFIGURATIONS\n")
                             get_table = json.load(open_tables)
