@@ -29,7 +29,7 @@ class home():
             root.title('Savings Tracker')
             root.geometry("800x500") # orig window 700x350
             root.resizable(False, False) # set to true to make window resizable
-            getbg = PhotoImage(file="app/res/login.png")
+            getbg = PhotoImage(file="app/res/home.png")
             setbg = Label(root, image=getbg).place(x=0, y=0, relwidth=1, relheight=1)
 
             print(' HOME LOADED')
@@ -76,7 +76,9 @@ class home():
                 login.title(f'User Login')
                 login.geometry('350x500')
                 login.resizable(False, False)
-                login.configure(bg=f'#7B96D4')
+                #login.configure(bg=f'#7B96D4')
+                getloginbg = PhotoImage(file="app/res/login.png")
+                setloginbg = Label(login, image=getbg).place(x=0, y=0)
 
                 # username label
                 space1 = Label(login,text='',bg='white').pack(side=TOP, pady=20)
