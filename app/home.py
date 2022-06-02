@@ -223,7 +223,7 @@ class home():
                         print(f' user : {userfield.get()}')
                         if this_user == False:
                             print(f' USER NOT FOUND')
-                            login.destroy()
+                            #login.destroy()
                             errormsg()
                         else:
                             this_pw = Q.verify_pw(userfield.get(), pwfield.get())
