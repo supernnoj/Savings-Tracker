@@ -1,6 +1,7 @@
 from init_db import Q
 from tos import *
 from home import *
+from appuser import *
 
 def __init__():
 
@@ -16,6 +17,7 @@ def __init__():
             isOK_login = home.__init__(f'', f'')
 
             if isOK_login:
-                print(f'\n THIS IS USER HOME')
+                print(f'\n GET USER APP')
+                isOK_user = app.welcomepage()
                 
 __init__()

@@ -143,6 +143,20 @@ class Q():
         else:
             return False
 
+    def get_email(user):
+        Q = _db.cursor()
+        Q.execute(f'USE userdata')
+        Q.execute(f"SELECT email FROM user WHERE username LIKE '%{user}'")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def get_user(email):
+        Q = _db.cursor()
+        Q.execute(f'USE userdata')
+        Q.execute(f"SELECT username FROM user WHERE email LIKE '%{email}'")
+        get_this = Q.fetchone()
+        return get_this[0]
+
     def write_user(email, user, pw):
         Q = _db.cursor()
         Q.execute(f'USE userdata')
@@ -150,4 +164,19 @@ class Q():
         Q.execute(f"INSERT INTO setup (email, new) VALUES ('{email}', '1')")
         _db.commit()
         print(f'\n USER ADDED')
-        return True    
+        return True
+
+    def get_active():
+        Q = _db.cursor()
+        Q.execute(f'USE userdata')
+        Q.execute(f"SELECT email FROM active WHERE id LIKE '%1'")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def set_active(email):
+        Q = _db.cursor()
+        Q.execute(f'USE userdata')
+        Q.execute(f"INSERT INTO active (email) VALUES ('{email}')")
+        _db.commit()
+        print(f'\n SET ACTIVE')
+        return True

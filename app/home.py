@@ -45,7 +45,7 @@ class home():
             getbg = PhotoImage(file="app/res/home.png")
             setbg = Label(root, image=getbg).place(x=0, y=0, relwidth=1, relheight=1)
 
-            print(' LOAD HOME')
+            print(' FOUND HOME')
 
             # ============= create account button ui =============
             getcreate = PhotoImage(file='app/res/createacc.png')
@@ -160,7 +160,8 @@ class home():
             
             createbutton = Button(root, image=getcreate, borderwidth=0, bg=f'#4152B3',
                 command=lambda: clickCreate())
-            createbutton.place(y=217, x=60)
+            #createbutton.place(y=217, x=60)
+            createbutton.place(y=281, x=60)
 
             createbutton.bind("<Enter>", entercreate)
             createbutton.bind("<Leave>", leavecreate)
@@ -214,16 +215,21 @@ class home():
                     global this_user, this_pw
                     this_user = Q.verify_user(userfield.get())
                     print(f'')
-                    print(f' user: {userfield.get()}')
+                    print(f' user : {userfield.get()}')
                     if this_user == False:
                         print(f' USER NOT FOUND')
                         login.destroy()
                         errormsg()
                     else:
                         this_pw = Q.verify_pw(userfield.get(), pwfield.get())
-                        print(f' password: {this_pw}')
+                        print(f' password : {this_pw}')
                         if this_pw:
                             print(f' USER FOUND')
+                            get_email = Q.get_email(userfield.get())
+                            set_active = Q.set_active(get_email)
+                            if set_active:
+                                global isProcessDone
+                                isProcessDone = True
                             okmsg()
                             root.destroy()
                         else:
@@ -259,7 +265,8 @@ class home():
 
             login_account_button = Button(root, image=getlogin, borderwidth=0, bg='#4152B3',
                 command=lambda: clickLogin())
-            login_account_button.place(y=281, x=60)
+            #login_account_button.place(y=281, x=60)
+            login_account_button.place(y=217, x=60)
 
             login_account_button.bind("<Enter>", enterlogin)
             login_account_button.bind("<Leave>", leavelogin)
@@ -268,8 +275,13 @@ class home():
             root.mainloop()
         
         __start__()
-        print(f'\n PROCEED WITH USER PROFILE: {isProcessDone}')
-        return isProcessDone
+
+        print(f'\n PROCEED WITH USER : {isProcessDone}')
+
+        if isProcessDone:
+            return isProcessDone
+
+       
 
             
             
