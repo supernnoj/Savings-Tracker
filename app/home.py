@@ -77,34 +77,34 @@ class home():
                 login.geometry('350x500')
                 login.resizable(False, False)
                 #login.configure(bg=f'#7B96D4')
-                getloginbg = PhotoImage(file="app/res/login.png")
-                setloginbg = Label(login, image=getbg).place(x=0, y=0)
+                getloginbg = PhotoImage(file = f'app/res/login.png')
+                seetloginbg = Label(login, image = getloginbg).place(x=0, y=0, relwidth=1, relheight=1)
 
                 # username label
-                space1 = Label(login,text='',bg='white').pack(side=TOP, pady=20)
-                usertext=Label(login,text='u s e r n a m e',bg='white')
+                space1 = Label(login,text='',bg='#4152B3').pack(side=TOP, pady=15)
+                usertext=Label(login,text='u s e r n a m e',bg='#4152B3', fg='white')
                 usertextfont=('Calibri',10, 'bold')
                 usertext.config(font=usertextfont)
                 usertext.pack(side=TOP)
 
                 # field for username entry
-                userfield=Entry(login,width=20,border=0)
+                userfield=Entry(login,width=20,border=0, bg='#4152B3', fg='white')
                 userfieldfont=('Calibri',13)
                 userfield.config(font=userfieldfont)
-                userfield.pack(side=TOP)
+                userfield.pack(side=TOP, pady=10)
 
                 # password label
-                space2 = Label(login,text='',bg='white').pack(side=TOP)
-                pwtext=Label(login,text='p a s s w o r d',bg='white')
+                space2 = Label(login,text='',bg='#4152B3').pack(side=TOP)
+                pwtext=Label(login,text='p a s s w o r d',bg='#4152B3',fg='white')
                 pwtextfont=('Calibri',10, 'bold')
                 pwtext.config(font=pwtextfont)
                 pwtext.pack(side=TOP)
 
                 # field for password entry
-                pwfield=Entry(login,width=20,border=0, show='*')
+                pwfield=Entry(login,width=20,border=0, bg='#4152B3', fg='white', show='*')
                 pwfieldfont=('Calibri',13)
                 pwfield.config(font=pwfieldfont)
-                pwfield.pack(side=TOP)
+                pwfield.pack(side=TOP, pady=10)
 
                 # login button
                 def confirm_log():
@@ -132,9 +132,30 @@ class home():
                             login.destroy()
                             errormsg()
 
-                login_button = Button(login, text=f'LOGIN', borderwidth=2,
+                """login_button = Button(login, text=f'LOGIN', borderwidth=2,
                 command=lambda: confirm_log())
-                login_button.pack(side=TOP, pady=10)
+                login_button.pack(side=TOP, pady=10)"""
+
+                def enterlogin(e):
+                    gethover = PhotoImage(file="app/res/logohover.png")
+                    login_button['image'] = gethover
+                    login_button.image = gethover
+                def leavelogin(e):
+                    getdefault = PhotoImage(file="app/res/logo.png")
+                    login_button['image'] = getdefault
+                    login_button.image = getdefault
+
+                clicktologin = Label(login, text=f'click logo below to log in', fg=f'white', bg=f'#4152B3', font=('Calibri',10, 'bold')).pack(side=TOP, pady=15)
+                
+                getlogo = PhotoImage(file=f'app/res/logo.png')
+                login_button = Button(login, image=getlogo, borderwidth=0,
+                command=lambda: confirm_log())
+                login_button.pack(side=BOTTOM, pady=73)
+
+                login_button.bind("<Enter>", enterlogin)
+                login_button.bind("<Leave>", leavelogin)
+
+                login.mainloop()
 
             login_account_button = Button(root, image=getlogin, borderwidth=0, bg='#4152B3',
                 command=lambda: clickLogin())
@@ -143,8 +164,6 @@ class home():
             login_account_button.bind("<Enter>", enterlogin)
             login_account_button.bind("<Leave>", leavelogin)
             # ============= end login button ui =============
-
-            # #4152B3
 
             root.mainloop()
         
