@@ -16,6 +16,14 @@ class login():
 """
     def __init__(user, pw):
 
+        def errormsg():
+            tkinter.messagebox.showinfo(f'Error Login', f'User not found')
+        
+        def okmsg():
+            tkinter.messagebox.showinfo(f'Login Success', f'User found!')
+            global isProcessDone
+            isProcessDone = True
+
         def __start__():
             root = Tk()
             root.title('Savings Tracker')
@@ -108,16 +116,19 @@ class login():
                     if this_user == f'none':
                         print(f' USER NOT FOUND')
                         login.destroy()
+                        errormsg()
                     else:
                         this_pw = Q.verify_pw(this_user, pwfield.get())
                         print(f' password: {this_pw}')
                         if this_pw:
                             print(f' USER FOUND')
+                            okmsg()
                             root.destroy()
                         else:
                             this_user = f''
                             print(f' USER NOT FOUND')
                             login.destroy()
+                            errormsg()
 
                 login_button = Button(login, text=f'LOGIN', borderwidth=2,
                 command=lambda: confirm_log())
@@ -136,6 +147,7 @@ class login():
             root.mainloop()
         
         __start__()
+        print(f'\n PROCEED WITH USER PROFILE: {isProcessDone}')
 
             
             
