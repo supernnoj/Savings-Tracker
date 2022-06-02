@@ -4,18 +4,20 @@ import mysql.connector
 import json
 import os
 
-class database():
+
+print('\n START CONNECT\n')
+
+# connect to xampp/local server
+_db = mysql.connector.connect(host="localhost", user="root", password="")
+
+print(' GET SERVER')
+print(' RUN SERVER\n')
+print(' SERVER RUNNING ...\n')
+
+class Q():
+
     def __init__():
         try:
-            print('\n START CONNECT\n')
-            
-            # connect to xampp/local server
-            _db = mysql.connector.connect(host="localhost", user="root", password="")
-            
-            print(' GET SERVER')
-            print(' RUN SERVER\n')
-            print(' SERVER RUNNING ...\n')
-
             Q = _db.cursor()
 
             #Q.execute("drop database userdata") # to drop database : only use if necessary
@@ -28,6 +30,8 @@ class database():
                 if str(exist_db) == "('userdata',)":
                     # if exist
                         print(" FOUND DATABASE")
+                        Q.execute('USE userdata')
+                        Q.execute('truncate table active')
                         db_exists = True
             # if db not exist
             if db_exists == False: # !UPDATE ALWAYS SET TO FALSE
@@ -53,7 +57,7 @@ class database():
                                 # execute user_login query from json : this insert username, password, email
                                 _user_login = x_table['user_login']
                                 try:
-                                    Q_user_login = f"CREATE TABLE user_login (id INT AUTO_INCREMENT PRIMARY KEY, {_user_login['username']} TEXT, {_user_login['password']} TEXT, {_user_login['email']} TEXT)"
+                                    Q_user_login = f"CREATE TABLE user (id INT AUTO_INCREMENT PRIMARY KEY, {_user_login['username']} TEXT, {_user_login['password']} TEXT, {_user_login['email']} TEXT)"
                                     Q.execute(Q_user_login) # run query
                                     print(" ADDED USER LOGIN FIELDS")
                                 except:
@@ -63,7 +67,7 @@ class database():
                                 # execute user_profile query from json : this insert username, password, email
                                 _user_profile = x_table['user_profile']
                                 try:
-                                    Q_user_profile = f"CREATE TABLE user_profile (id INT AUTO_INCREMENT PRIMARY KEY, {_user_profile['fname']} TEXT, {_user_profile['mi']} TEXT, {_user_profile['lname']} TEXT, {_user_profile['age']} NUMERIC, {_user_profile['birthday']} TEXT)"
+                                    Q_user_profile = f"CREATE TABLE profile (id INT AUTO_INCREMENT PRIMARY KEY, email TEXT, {_user_profile['fname']} TEXT, {_user_profile['mi']} TEXT, {_user_profile['lname']} TEXT, {_user_profile['age']} NUMERIC, {_user_profile['birthday']} TEXT)"
                                     Q.execute(Q_user_profile) # run query
                                     print(" ADDED USER PROFILE FIELDS")
                                 except:
@@ -73,7 +77,7 @@ class database():
                                 # execute bank_acc query from json : this insert email, cash_type, cash_bal
                                 _bank_acc = x_table['bank_acc']
                                 try:
-                                    Q__bank_acc = f"CREATE TABLE bank_acc (id INT AUTO_INCREMENT PRIMARY KEY, {_bank_acc['email']} TEXT, {_bank_acc['cash_type']} TEXT, {_bank_acc['cash_bal']} NUMERIC)"
+                                    Q__bank_acc = f"CREATE TABLE bank (id INT AUTO_INCREMENT PRIMARY KEY, {_bank_acc['email']} TEXT, {_bank_acc['cash_type']} TEXT, {_bank_acc['cash_bal']} NUMERIC)"
                                     Q.execute(Q__bank_acc) # run query
                                     print(" ADDED BANK ACCOUNT FIELDS")
                                 except:
@@ -106,3 +110,46 @@ class database():
             print("")
             for x in range (0, 5):
                 print(' ERROR: SERVER CONNECTION FAILED. PLEASE CHECK IF XAMPP IS RUNNING PROPERLY.')
+        
+    def verify_user(user):
+        Q = _db.cursor()
+        Q.execute(f'USE userdata')
+        Q.execute(f"SELECT username FROM user WHERE username LIKE '%{user}'")
+        get_this = Q.fetchone()
+        if get_this:
+            return True
+        else:
+            return False
+    
+    def  verify_pw(user, pw):
+        Q = _db.cursor()
+        Q.execute(f'USE userdata')
+        #print(f'query.py: {user}, {pw}') # just to check
+        Q.execute(f"SELECT password FROM user WHERE username LIKE '%{user}'")
+        get_this = Q.fetchone()
+        if len(get_this) != 0:
+            if get_this[0] == f'{pw}':
+                return True
+            else:
+                return False
+        else:
+            return False
+    
+    def verify_email(email):
+        Q = _db.cursor()
+        Q.execute(f'USE userdata')
+        Q.execute(f"SELECT email FROM user WHERE email LIKE '%{email}'")
+        get_this = Q.fetchone()
+        if get_this:
+            return True
+        else:
+            return False
+
+    def write_user(email, user, pw):
+        Q = _db.cursor()
+        Q.execute(f'USE userdata')
+        Q.execute(f"INSERT INTO user (email, username, password) VALUES ('{email}', '{user}', '{pw}')")
+        Q.execute(f"INSERT INTO setup (email, new) VALUES ('{email}', '1')")
+        _db.commit()
+        print(f'\n USER ADDED')
+        return True    
