@@ -9,7 +9,7 @@ isProcessDone = False
 this_user = f''
 this_pw = False
 
-class login():
+class home():
 
     """def usernotfound_msgbox():
         tkinter.messagebox.showinfo(f'Error', f'User not found')
@@ -32,7 +32,7 @@ class login():
             getbg = PhotoImage(file="app/res/login.png")
             setbg = Label(root, image=getbg).place(x=0, y=0, relwidth=1, relheight=1)
 
-            print(' LOGIN FOUND')
+            print(' HOME LOADED')
 
             # ============= create account button ui =============
             getcreate = PhotoImage(file='app/res/createacc.png')
@@ -108,24 +108,24 @@ class login():
                 def confirm_log():
                     global this_user, this_pw
 
-                    this_user = Q.get_user(userfield.get())
+                    this_user = Q.verify_user(userfield.get())
 
                     print(f'')
-                    print(f' user: {this_user}')
+                    print(f' user: {userfield.get()}')
 
-                    if this_user == f'none':
+                    if this_user == False:
                         print(f' USER NOT FOUND')
                         login.destroy()
                         errormsg()
                     else:
-                        this_pw = Q.verify_pw(this_user, pwfield.get())
+                        this_pw = Q.verify_pw(userfield.get(), pwfield.get())
                         print(f' password: {this_pw}')
                         if this_pw:
                             print(f' USER FOUND')
                             okmsg()
                             root.destroy()
                         else:
-                            this_user = f''
+                            this_user = False
                             print(f' USER NOT FOUND')
                             login.destroy()
                             errormsg()

@@ -6,22 +6,21 @@ dbconnect = mysql.connector.connect(host="localhost", user="root", password="")
 
 class Q():
 
-    def get_user(user):
+    def verify_user(user):
         Q = dbconnect.cursor()
         Q.execute(f'USE userdata')
         Q.execute(f"SELECT username FROM user_login WHERE email LIKE '%{user}'")
         get_this = Q.fetchone()
         if get_this:
-            return get_this[0]
+            return True
         else:
-            user = f'none'
-            return user
+            return False
     
     def  verify_pw(user, pw):
         Q = dbconnect.cursor()
         Q.execute(f'USE userdata')
         #print(f'query.py: {user}, {pw}') # just to check
-        Q.execute(f"SELECT password FROM user_login WHERE email LIKE '%{user}'")
+        Q.execute(f"SELECT password FROM user_login WHERE username LIKE '%{user}'")
         get_this = Q.fetchone()
         if len(get_this) != 0:
             if get_this[0] == f'{pw}':
