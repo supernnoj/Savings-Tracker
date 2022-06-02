@@ -238,7 +238,7 @@ class home():
                             else:
                                 this_user = False
                                 print(f' USER NOT FOUND')
-                                login.destroy()
+                                #login.destroy()
                                 errormsg()
 
                 """login_button = Button(login, text=f'LOGIN', borderwidth=2,
