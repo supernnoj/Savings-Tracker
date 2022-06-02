@@ -1,9 +1,5 @@
-from faulthandler import disable
-from msilib.schema import AdminExecuteSequence
-from ssl import cert_time_to_seconds
 from tkinter import *
 import tkinter.messagebox
-import os
 from init_db import Q
 
 # global var
@@ -16,9 +12,6 @@ userError = False
 
 class home():
 
-    """def usernotfound_msgbox():
-        tkinter.messagebox.showinfo(f'Error', f'User not found')
-"""
     def __init__(user, pw):
 
         def errormsg():

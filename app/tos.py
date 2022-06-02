@@ -1,4 +1,3 @@
-from email.mime import image
 from tkinter import *
 import tkinter.messagebox
 

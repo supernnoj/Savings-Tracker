@@ -1,5 +1,3 @@
-from sqlite3 import connect
-from webbrowser import get
 import mysql.connector
 import json
 import os
