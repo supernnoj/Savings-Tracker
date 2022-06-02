@@ -1,16 +1,17 @@
-from inspect import getcallargs
 from tkinter import *
 import tkinter.messagebox
 from init_db import Q
 
 print(f' FOUND USER APP')
-get_active = Q.get_active()
+
+get_active = ''
 
 class app():
     
     def welcomepage():
         
         global get_active
+        get_active = Q.get_active()
 
         root = Tk()
         root.title(f'{Q.get_user(get_active)}')

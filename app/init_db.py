@@ -30,6 +30,7 @@ class Q():
                         print(" FOUND DATABASE")
                         Q.execute('USE userdata')
                         Q.execute('truncate table active')
+                        #_db.commit()
                         db_exists = True
             # if db not exist
             if db_exists == False: # !UPDATE ALWAYS SET TO FALSE

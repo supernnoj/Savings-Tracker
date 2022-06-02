@@ -213,30 +213,33 @@ class home():
                 # login button
                 def confirm_log():
                     global this_user, this_pw
-                    this_user = Q.verify_user(userfield.get())
-                    print(f'')
-                    print(f' user : {userfield.get()}')
-                    if this_user == False:
-                        print(f' USER NOT FOUND')
-                        login.destroy()
-                        errormsg()
+                    loguser = userfield.get()
+                    logpw = pwfield.get()
+                    if len(loguser) == 0 or len(logpw) == 0:
+                        errorempty()
                     else:
-                        this_pw = Q.verify_pw(userfield.get(), pwfield.get())
-                        print(f' password : {this_pw}')
-                        if this_pw:
-                            print(f' USER FOUND')
-                            get_email = Q.get_email(userfield.get())
-                            set_active = Q.set_active(get_email)
-                            if set_active:
-                                global isProcessDone
-                                isProcessDone = True
-                            okmsg()
-                            root.destroy()
-                        else:
-                            this_user = False
+                        this_user = Q.verify_user(userfield.get())
+                        print(f'')
+                        print(f' user : {userfield.get()}')
+                        if this_user == False:
                             print(f' USER NOT FOUND')
                             login.destroy()
                             errormsg()
+                        else:
+                            this_pw = Q.verify_pw(userfield.get(), pwfield.get())
+                            print(f' password : {this_pw}')
+                            if this_pw:
+                                print(f' USER FOUND')
+                                get_email = Q.get_email(userfield.get())
+                                set_active = Q.set_active(get_email)
+                                if set_active:
+                                    okmsg()
+                                    root.destroy()
+                            else:
+                                this_user = False
+                                print(f' USER NOT FOUND')
+                                login.destroy()
+                                errormsg()
 
                 """login_button = Button(login, text=f'LOGIN', borderwidth=2,
                 command=lambda: confirm_log())
