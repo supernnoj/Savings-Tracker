@@ -2,11 +2,18 @@ from msilib.schema import AdminExecuteSequence
 from tkinter import *
 import tkinter.messagebox
 import os
+from query import *
 
-isLogged = True
+# global var
+isProcessDone = False
+this_user = f''
+this_pw = False
 
 class login():
 
+    """def usernotfound_msgbox():
+        tkinter.messagebox.showinfo(f'Error', f'User not found')
+"""
     def __init__(user, pw):
 
         def __start__():
@@ -19,21 +26,42 @@ class login():
 
             print(' LOGIN FOUND')
 
-            # create account button ui
+            # ============= create account button ui =============
             getcreate = PhotoImage(file='app/res/createacc.png')
             setcreate = Label(image=getcreate)
-            """def clickCreate(text):
-                tkinter.messagebox.showinfo("Terms of Service", text)
-                global isLogin 
-                isLogin = True"""
+
+            # create account hover effects
+            def entercreate(e):
+                gethover = PhotoImage(file="app/res/createacchover.png")
+                createbutton['image'] = gethover
+                createbutton.image = gethover
+            def leavecreate(e):
+                getdefault = PhotoImage(file="app/res/createacc.png")
+                createbutton['image'] = getdefault
+                createbutton.image = getdefault
+            
             createbutton = Button(root, image=getcreate, borderwidth=0, bg='#4152B3')
                 #command=lambda: onClick("You accepted Terms of Service"))
             createbutton.place(y=217, x=60)
+
+            createbutton.bind("<Enter>", entercreate)
+            createbutton.bind("<Leave>", leavecreate)
+            # ============= end create account button ui =============
             
-            # ============= create login button ui =============
+            # ============= login button ui =============
             getlogin = PhotoImage(file='app/res/loginacc.png')
             setlogin = Label(image=getlogin)
-            
+
+            # login hover effects
+            def enterlogin(e):
+                gethover = PhotoImage(file="app/res/loginacchover.png")
+                login_account_button['image'] = gethover
+                login_account_button.image = gethover
+            def leavelogin(e):
+                getdefault = PhotoImage(file="app/res/loginacc.png")
+                login_account_button['image'] = getdefault
+                login_account_button.image = getdefault
+
             # login popup window
             def clickLogin():
                 login = Toplevel(root)
@@ -42,21 +70,66 @@ class login():
                 login.resizable(False, False)
                 login.configure(bg=f'#7B96D4')
 
-                l1=Label(login,text='Username',bg='white')
-                l=('Consolas',13)
-                l1.config(font=l)
-                l1.place(x=80,y=200)
+                # username label
+                space1 = Label(login,text='',bg='white').pack(side=TOP, pady=20)
+                usertext=Label(login,text='u s e r n a m e',bg='white')
+                usertextfont=('Calibri',10, 'bold')
+                usertext.config(font=usertextfont)
+                usertext.pack(side=TOP)
 
-                #e1 entry for username entry
-                e1=Entry(login,width=20,border=0)
-                l=('Consolas',13)
-                e1.config(font=l)
-                e1.place(x=80,y=230)
+                # field for username entry
+                userfield=Entry(login,width=20,border=0)
+                userfieldfont=('Calibri',13)
+                userfield.config(font=userfieldfont)
+                userfield.pack(side=TOP)
 
-            createbutton = Button(root, image=getlogin, borderwidth=0, bg='#4152B3',
+                # password label
+                space2 = Label(login,text='',bg='white').pack(side=TOP)
+                pwtext=Label(login,text='p a s s w o r d',bg='white')
+                pwtextfont=('Calibri',10, 'bold')
+                pwtext.config(font=pwtextfont)
+                pwtext.pack(side=TOP)
+
+                # field for password entry
+                pwfield=Entry(login,width=20,border=0, show='*')
+                pwfieldfont=('Calibri',13)
+                pwfield.config(font=pwfieldfont)
+                pwfield.pack(side=TOP)
+
+                # login button
+                def confirm_log():
+                    global this_user, this_pw
+
+                    this_user = Q.get_user(userfield.get())
+
+                    print(f'')
+                    print(f' user: {this_user}')
+
+                    if this_user == f'none':
+                        print(f' USER NOT FOUND')
+                        login.destroy()
+                    else:
+                        this_pw = Q.verify_pw(this_user, pwfield.get())
+                        print(f' password: {this_pw}')
+                        if this_pw:
+                            print(f' USER FOUND')
+                            root.destroy()
+                        else:
+                            this_user = f''
+                            print(f' USER NOT FOUND')
+                            login.destroy()
+
+                login_button = Button(login, text=f'LOGIN', borderwidth=2,
+                command=lambda: confirm_log())
+                login_button.pack(side=TOP, pady=10)
+
+            login_account_button = Button(root, image=getlogin, borderwidth=0, bg='#4152B3',
                 command=lambda: clickLogin())
-            createbutton.place(y=281, x=60)
-            # ============= end create login button ui =============
+            login_account_button.place(y=281, x=60)
+
+            login_account_button.bind("<Enter>", enterlogin)
+            login_account_button.bind("<Leave>", leavelogin)
+            # ============= end login button ui =============
 
             # #4152B3
 
@@ -64,8 +137,10 @@ class login():
         
         __start__()
 
-        if isLogged:
-            return True
+            
+            
+                
+            
             
 
         

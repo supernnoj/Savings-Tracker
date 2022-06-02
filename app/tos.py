@@ -9,44 +9,43 @@ class tos():
     def __init__():
 
         def main():
-
             # create window
             root  = Tk()
             root.title(f'Savings Tracker')
             root.geometry(f'740x390')
             root.resizable(False, False)
             # set background
-            getbg = PhotoImage(file="app/res/tos.png")
+            getbg = PhotoImage(file=f'app/res/tos.png')
             setbg = Label(root, image=getbg).place(x=0, y=0, relwidth=1, relheight=1)
             # button ui
-            getbutton = PhotoImage(file='app/res/accept.png')
+            getbutton = PhotoImage(file=f'app/res/accept.png')
             setbutton = Label(image=getbutton)
 
             def enter(e):
-                gethover = PhotoImage(file="app/res/accepthover.png")
-                button['image'] = gethover
+                gethover = PhotoImage(file=f'app/res/accepthover.png')
+                button[f'image'] = gethover
                 button.image = gethover
             
             def leave(e):
-                getdefault = PhotoImage(file="app/res/accept.png")
-                button['image'] = getdefault
+                getdefault = PhotoImage(file=f'app/res/accept.png')
+                button[f'image'] = getdefault
                 button.image = getdefault
 
             def onClick(text):
-                tkinter.messagebox.showinfo("Terms of Service", text)
+                tkinter.messagebox.showinfo(f'Terms of Service', text)
                 global isOK 
                 isOK = True
                 root.destroy()
 
             button = Button(root, image=getbutton, borderwidth=0, bg='white',
-                command=lambda: onClick("You accepted Terms of Service"))
+                command=lambda: onClick(f'You accepted Terms of Service'))
             button.image = getbutton
             button.pack(side=BOTTOM, pady=60)
 
-            button.bind("<Enter>", enter)
-            button.bind("<Leave>", leave)
+            button.bind(f'<Enter>', enter)
+            button.bind(f'<Leave>', leave)
 
-            print(' WAIT ACCEPT TOS')
+            print(f' WAIT ACCEPT TOS')
 
             root.mainloop()
 
