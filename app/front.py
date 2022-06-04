@@ -18,7 +18,7 @@ class app():
 
             WIDTH = 500
             HEIGHT = 500
-            
+
             root =Tk()
             root.title(f'Savings Tracker')
             root.config(bg='#2A2D2E')
@@ -112,8 +112,15 @@ class app():
                             else:
                                 error.password()
                 
-                btn = customtkinter.CTkButton(  create, text="Create",
-                                                corner_radius=6,
+                btn = customtkinter.CTkButton(  create,
+                                                text="CREATE",
+                                                corner_radius=10,
+                                                border_width=0,
+                                                text_font=(f'Calibri', 11, f'bold'),
+                                                text_color=f'white',
+                                                fg_color=f'#4152B3',
+                                                bg_color=f'white',
+                                                hover_color=f'#69D567',
                                                 command=lambda: confirm(),
                                                 width=80    )
                 btn.place(x=246, y=430)

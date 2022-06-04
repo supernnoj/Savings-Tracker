@@ -39,7 +39,6 @@ class tos():
                                             border_width=0,
                                             text_font=(f'Calibri', 11, f'bold'),
                                             text_color=f'white',
-                                            
                                             fg_color=f'#6595D4',
                                             bg_color=f'white',
                                             hover_color=f'#69D567',
