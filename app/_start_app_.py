@@ -22,6 +22,6 @@ def __init__():
 
                 if isOK_login:
                     print(f'\n GET USER APP')
-                    isOK_user = user.welcomepage()
+                    isOK_user = user.welcome()
                 
 __init__()
