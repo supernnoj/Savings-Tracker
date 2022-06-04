@@ -2,21 +2,18 @@ import mysql.connector
 import json
 import os
 
-
-print('\n START CONNECT\n')
-
-# connect to xampp/local server
+# ========= >>> connect to xampp/local server <<< =========
 _db = mysql.connector.connect(host="localhost", user="root", password="")
 
-print(' GET SERVER')
-print(' RUN SERVER\n')
-print(' SERVER RUNNING ...\n')
-
-class Q():
+class database():
 
     def __init__():
+        print('\n START CONNECT\n')
         try:
             Q = _db.cursor()
+            print(' GET SERVER')
+            print(' RUN SERVER\n')
+            print(' SERVER RUNNING ...\n')
 
             #Q.execute("drop database userdata") # to drop database : only use if necessary
 
@@ -33,7 +30,7 @@ class Q():
                         #_db.commit()
                         db_exists = True
             # if db not exist
-            if db_exists == False: # !UPDATE ALWAYS SET TO FALSE
+            if db_exists == False: # ALWAYS SET TO FALSE
                 try:
                     # create new db
                     print("\n ERROR: NO INITIAL DATABASE FOUND\n")
@@ -47,9 +44,9 @@ class Q():
                         print(" LOCATING DATABASE CONFIGURATIONS")
                         Q_active = f"CREATE TABLE active (id INT AUTO_INCREMENT PRIMARY KEY, email TEXT)"
                         Q.execute(Q_active) # run query
-                        Q_setup = f"CREATE TABLE setup (id INT AUTO_INCREMENT PRIMARY KEY, email TEXT,  new INT)"
+                        Q_setup = f"CREATE TABLE setup (id INT AUTO_INCREMENT PRIMARY KEY, email TEXT,  status TEXT)"
                         Q.execute(Q_setup) # run query
-                        with open(to_file + "db_fields.json", "r") as open_tables: # open json file
+                        with open(to_file + "database.json", "r") as open_tables: # open json file
                             print(" APPLYING DATABASE CONFIGURATIONS\n")
                             get_table = json.load(open_tables)
                             for x_table in get_table:
@@ -97,7 +94,7 @@ class Q():
                     except:
                         print("")
                         for x in range (0, 5):
-                            print(" UNEXPECTED ERROR OCCURED. PLEASE CHECK IF db_fields.json EXIST IN APP FOLDER.")
+                            print(" UNEXPECTED ERROR OCCURED. PLEASE CHECK IF database.json EXIST IN APP FOLDER.")
                 except:
                     print("\n UNEXPECTED ERROR OCCURED. PLEASE CHECK SYSTEM CONFIGURATIONS.")
 
@@ -110,6 +107,7 @@ class Q():
             for x in range (0, 5):
                 print(' ERROR: SERVER CONNECTION FAILED. PLEASE CHECK IF XAMPP IS RUNNING PROPERLY.')
         
+class Q():
     def verify_user(user):
         Q = _db.cursor()
         Q.execute(f'USE userdata')
@@ -119,7 +117,7 @@ class Q():
             return True
         else:
             return False
-    
+
     def  verify_pw(user, pw):
         Q = _db.cursor()
         Q.execute(f'USE userdata')
@@ -133,13 +131,23 @@ class Q():
                 return False
         else:
             return False
-    
+
     def verify_email(email):
         Q = _db.cursor()
         Q.execute(f'USE userdata')
         Q.execute(f"SELECT email FROM user WHERE email LIKE '%{email}'")
         get_this = Q.fetchone()
         if get_this:
+            return True
+        else:
+            return False
+
+    def verify_new(email):
+        Q = _db.cursor()
+        Q.execute(f'USE userdata')
+        Q.execute(f"SELECT status FROM setup WHERE email LIKE '%{email}'")
+        get_this = Q.fetchone()
+        if get_this[0] == f'new':
             return True
         else:
             return False
@@ -158,11 +166,11 @@ class Q():
         get_this = Q.fetchone()
         return get_this[0]
 
-    def write_user(email, user, pw):
+    def create_user(email, user, pw):
         Q = _db.cursor()
         Q.execute(f'USE userdata')
         Q.execute(f"INSERT INTO user (email, username, password) VALUES ('{email}', '{user}', '{pw}')")
-        Q.execute(f"INSERT INTO setup (email, new) VALUES ('{email}', '1')")
+        Q.execute(f"INSERT INTO setup (email, status) VALUES ('{email}', 'new')")
         _db.commit()
         print(f'\n USER ADDED')
         return True

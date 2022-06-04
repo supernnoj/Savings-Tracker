@@ -1,1 +1,1 @@
-python app\run.py
+python app\_start_app_.py
