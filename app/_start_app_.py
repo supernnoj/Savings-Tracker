@@ -6,7 +6,7 @@ from splash import *
 
 def __init__():
 
-    isOK_splash = True # work in progress
+    isOK_splash = splash.__init__()
 
     if isOK_splash:
         isOK_db = database.__init__()
