@@ -32,7 +32,7 @@ class app():
             getbg = PhotoImage(file='app/res/home.png')
             setbg = Label(image=getbg, border=0).place(x=0, y=0, relheight=1, relwidth=1)
 
-            # ========= >>> create account pop up window
+            # ========= >>> create account pop up window <<< =========
             def clickCreate():
 
                 WIDTH = 350
