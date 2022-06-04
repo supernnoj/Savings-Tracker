@@ -23,7 +23,7 @@ class user():
             root.mainloop()
 
         def hello_user():
-            tkinter.messagebox.showinfo(f'Hi, {Q.get_user(Q.get_active())}!', f'The system recognized that you are a new user of this app.\nLet us help you run a quick setup.')
+            tkinter.messagebox.showinfo(f'New user', f'Hi, {Q.get_user(Q.get_active())}!\nThe system recognized that you are a new user of this app.\nLet us help you run a quick setup.')
             return True
 
         def setup():
