@@ -14,7 +14,6 @@ class app():
         def __start__():
 
             print(f' FOUND HOME')
-            print(f'\n IGNORE WINDOWS SCALING ERROR BELOW \n')
 
             WIDTH = 500
             HEIGHT = 500
