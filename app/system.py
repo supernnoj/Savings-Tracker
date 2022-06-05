@@ -28,6 +28,10 @@ class success():
         tkinter.messagebox.showinfo(f'Login Success', f'User found!')
         return True
 
+    def tos():
+        tkinter.messagebox.showinfo(f'Terms of Service', f'You accepted Terms of Service')
+        return True
+
 # ========= >>> system process checker/validator <<< =========  
 class validate():
 
