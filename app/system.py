@@ -24,6 +24,10 @@ class success():
     def user_added():
         tkinter.messagebox.showinfo(f'Account Created', f'Account created successfully!')
 
+    def personal_info_added():
+        tkinter.messagebox.showinfo(f'Personal Info', f'Personal Informations added successfully!')
+        return True
+
     def login():
         tkinter.messagebox.showinfo(f'Login Success', f'User found!')
         return True
@@ -40,3 +44,13 @@ class validate():
             return True
         else:
             return False
+
+class message():
+
+    def hello_user(user):
+            tkinter.messagebox.showinfo(f'New user', f'Hi, {user}!\nThe system recognized that you are a new user of this app.\nLet us help you run a quick setup.')
+            return True
+        
+    def add_info():
+        tkinter.messagebox.showinfo(f'Personal Info', f'Let\'s start with your personal informations.')
+        return True

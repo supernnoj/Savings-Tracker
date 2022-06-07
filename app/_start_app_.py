@@ -3,6 +3,7 @@ from tos import *
 from front import *
 from user import *
 from splash import *
+from system import *
 
 def __init__():
 
@@ -21,7 +22,16 @@ def __init__():
                 isOK_login = app.__init__()
 
                 if isOK_login:
-                    print(f'\n GET USER APP')
-                    isOK_user = user.welcome()
+                    print(f'\n GET USER SETTINGS')
+                    print(f'\n user : {Q.get_user(Q.get_active())}')
+                    print(f' new user : {Q.verify_new(Q.get_active())}')
+                    if Q.verify_new(Q.get_active()):
+                        if message.hello_user(Q.get_user(Q.get_active())):
+                            if message.add_info():
+                                if new_user.true():
+                                    user.welcome()
+                    else:
+                        user.welcome()
+
                 
 __init__()

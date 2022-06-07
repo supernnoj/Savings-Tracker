@@ -126,18 +126,20 @@ class app():
 
                 create.mainloop()
 
-            btn_create = customtkinter.CTkButton(   root,
-                                                    text="SIGN UP",
-                                                    command=lambda: clickCreate(),
-                                                    border_width=1,
-                                                    border_color=f'white',
-                                                    text_font=('Calibri', 15, 'bold'),
-                                                    text_color='white',
-                                                    fg_color=None,
-                                                    hover_color=f'#6595D4',
-                                                    bg_color=f'#4F5FB9',
-                                                    corner_radius=5,
-                                                    width=120    )
+            btn_create = customtkinter.CTkButton(
+                root,
+                text="SIGN UP",
+                command=lambda: clickCreate(),
+                border_width=1,
+                border_color=f'white',
+                text_font=('Calibri', 15, 'bold'),
+                text_color='white',
+                fg_color=None,
+                hover_color=f'#6595D4',
+                bg_color=f'#4F5FB9',
+                corner_radius=5,
+                width=120
+                )
             btn_create.place(x=195, y=335)
 
             btn_new = customtkinter.CTkButton()
@@ -224,48 +226,56 @@ class app():
                 login.mainloop()
 
             # ========= >>> login button <<< ========= 
-            btn_login = customtkinter.CTkButton(    root,
-                                                    text="LOG IN",
-                                                    command=lambda: clickLogin(),
-                                                    border_width=1,
-                                                    border_color=f'white',
-                                                    text_font=('Calibri', 15, 'bold'),
-                                                    text_color='white',
-                                                    fg_color=None,
-                                                    hover_color=f'#6595D4',
-                                                    bg_color=f'#4F5FB9',
-                                                    corner_radius=5,
-                                                    width=120    )
+            btn_login = customtkinter.CTkButton(
+                root,
+                text="LOG IN",
+                command=lambda: clickLogin(),
+                border_width=1,
+                border_color=f'white',
+                text_font=('Calibri', 15, 'bold'),
+                text_color='white',
+                fg_color=None,
+                hover_color=f'#6595D4',
+                bg_color=f'#4F5FB9',
+                corner_radius=5,
+                width=120,
+                )
             btn_login.place(x=195, y=290)
 
             # ========= >>> about button <<< ========= 
-            btn_reset_pw = customtkinter.CTkButton(   root,
-                                                    text="ABOUT",
-                                                    command=lambda: clickCreate(),
-                                                    border_width=1,
-                                                    border_color=f'white',
-                                                    text_font=('Calibri', 15, 'bold'),
-                                                    text_color='white',
-                                                    fg_color=None,
-                                                    hover_color=f'#6595D4',
-                                                    bg_color=f'#4F5FB9',
-                                                    corner_radius=5,
-                                                    width=120    )
+            btn_reset_pw = customtkinter.CTkButton(
+                root,
+                text="ABOUT",
+                command=lambda: clickCreate(),
+                border_width=1,
+                border_color=f'white',
+                text_font=('Calibri', 15, 'bold'),
+                text_color='white',
+                fg_color=None,
+                hover_color=f'#6595D4',
+                bg_color=f'#4F5FB9',
+                corner_radius=5,
+                width=120,
+                state=DISABLED
+                )
             btn_reset_pw.place(x=195, y=380)
 
             # ========= >>> help button <<< ========= 
-            btn_reset_pw = customtkinter.CTkButton(   root,
-                                                    text="HELP",
-                                                    command=lambda: clickCreate(),
-                                                    border_width=1,
-                                                    border_color=f'white',
-                                                    text_font=('Calibri', 15, 'bold'),
-                                                    text_color='white',
-                                                    fg_color=None,
-                                                    hover_color=f'#6595D4',
-                                                    bg_color=f'#4F5FB9',
-                                                    corner_radius=5,
-                                                    width=120    )
+            btn_reset_pw = customtkinter.CTkButton(
+                root,
+                text="HELP",
+                command=lambda: clickCreate(),
+                border_width=1,
+                border_color=f'white',
+                text_font=('Calibri', 15, 'bold'),
+                text_color='white',
+                fg_color=None,
+                hover_color=f'#6595D4',
+                bg_color=f'#4F5FB9',
+                corner_radius=5,
+                width=120,
+                state=DISABLED    
+                )
             btn_reset_pw.place(x=195, y=425)
 
             root.mainloop()

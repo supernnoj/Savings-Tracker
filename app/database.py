@@ -1,6 +1,7 @@
 import mysql.connector
 import json
 import os
+from datetime import date
 
 # ========= >>> connect to xampp/local server <<< =========
 _db = mysql.connector.connect(host="localhost", user="root", password="")
@@ -43,6 +44,8 @@ class database():
             Q.execute(Q_active) # run query
             Q_setup = f"CREATE TABLE setup (id INT AUTO_INCREMENT PRIMARY KEY, email TEXT,  status TEXT)"
             Q.execute(Q_setup) # run query
+            Q_security = f"CREATE TABLE security (id INT AUTO_INCREMENT PRIMARY KEY, email TEXT,  question TEXT, answer TEXT)"
+            Q.execute(Q_security) # run query
             with open(to_file + "database.json", "r") as open_tables: # open json file
                 print(" APPLYING DATABASE CONFIGURATIONS\n")
                 get_table = json.load(open_tables)
@@ -60,7 +63,7 @@ class database():
                     # execute user_profile query from json : this insert username, password, email
                     _user_profile = x_table['user_profile']
     
-                    Q_user_profile = f"CREATE TABLE profile (id INT AUTO_INCREMENT PRIMARY KEY, email TEXT, {_user_profile['fname']} TEXT, {_user_profile['mi']} TEXT, {_user_profile['lname']} TEXT, {_user_profile['age']} NUMERIC, {_user_profile['birthday']} TEXT)"
+                    Q_user_profile = f"CREATE TABLE profile (id INT AUTO_INCREMENT PRIMARY KEY, email TEXT, {_user_profile['fname']} TEXT, {_user_profile['mi']} TEXT, {_user_profile['lname']} TEXT, {_user_profile['age']} INT, {_user_profile['birthday']} TEXT)"
                     Q.execute(Q_user_profile) # run query
                     print(" ADDED USER PROFILE FIELDS")
 
@@ -174,4 +177,20 @@ class Q():
         Q.execute(f"INSERT INTO active (email) VALUES ('{email}')")
         _db.commit()
         print(f'\n SET ACTIVE')
+        return True
+
+    def write_profile(email, fname, mi, lname, birthday, sq, sa):
+        Q = _db.cursor()
+        dob = birthday.split('-')
+        year = dob[2]
+        current_year = date.today().year
+        age = (int(year) - int(current_year)) * (-1)
+        print (year)
+        print(age)
+        Q.execute(f'USE userdata')
+        Q.execute(f"INSERT INTO profile (email, fname, mi, lname, age, birthday) VALUES ('{email}', '{fname}','{mi}','{lname}', '{int(age)}','{birthday}')")
+        Q.execute(f"UPDATE setup SET status = 'old' WHERE email = '{email}' ")
+        Q.execute(f"INSERT INTO security (email, question, answer) VALUES ('{email}', '{sq}', '{sa}')")
+        _db.commit()
+        print(f'\n user info added')
         return True
