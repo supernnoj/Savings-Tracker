@@ -1,1 +1,1 @@
-python app\_start_app_.py
+python app\__init__.py
