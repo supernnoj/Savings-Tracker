@@ -48,6 +48,24 @@ class success:
             f"Terms of Service", f"You accepted Terms of Service"
         )
         return True
+    
+    def add_acc():
+        tkinter.messagebox.showinfo(
+                f"Account Added", f"Account added susccessfully."
+            )
+        return True
+    
+    def del_acc():
+        tkinter.messagebox.showinfo(
+                f"Account Unbinded", f"Account unbinded susccessfully."
+            )
+        return True
+    
+    def transac():
+        tkinter.messagebox.showinfo(
+                f"Transaction Completed", f"Account transaction completed successfully."
+            )
+        return True
 
 
 # ========= >>> system process checker/validator <<< =========
@@ -72,3 +90,5 @@ class message:
             f"Personal Info", f"Let's start with your personal informations."
         )
         return True
+
+    

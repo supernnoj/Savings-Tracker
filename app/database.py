@@ -2,6 +2,8 @@ import mysql.connector
 import json
 import os
 from datetime import date
+import re
+from datetime import datetime
 
 # ========= >>> connect to xampp/local server <<< =========
 _db = mysql.connector.connect(host="localhost", user="root", password="")
@@ -61,12 +63,12 @@ class database:
                     print(" ADDED USER PROFILE FIELDS")
 
                     _bank_acc = x_table["bank_acc"]
-                    Q__bank_acc = f"CREATE TABLE bank (id INT AUTO_INCREMENT PRIMARY KEY, {_bank_acc['email']} TEXT, {_bank_acc['cash_type']} TEXT, {_bank_acc['cash_bal']} NUMERIC)"
+                    Q__bank_acc = f"CREATE TABLE bank (id INT AUTO_INCREMENT PRIMARY KEY, {_bank_acc['email']} TEXT, {_bank_acc['cash_type']} TEXT, {_bank_acc['cash_bal']} DECIMAL(65, 2))"
                     Q.execute(Q__bank_acc)
                     print(" ADDED BANK ACCOUNT FIELDS")
 
                     _logs = x_table["logs"]
-                    Q_logs = f"CREATE TABLE logs (id INT AUTO_INCREMENT PRIMARY KEY, {_logs['email']} TEXT, {_logs['cash_in']} NUMERIC, {_logs['cash_out']} NUMERIC, {_logs['cash_type']} TEXT, {_logs['cash_type_before_bal']} NUMERIC, {_logs['cash_type_after_bal']} NUMERIC, {_logs['total_funds_before']} NUMERIC,{_logs['total_funds_after']} NUMERIC, {_logs['date']} TEXT, {_logs['time']} TEXT, {_logs['note']} TEXT)"
+                    Q_logs = f"CREATE TABLE logs (id INT AUTO_INCREMENT PRIMARY KEY, {_logs['email']} TEXT, {_logs['cash_in']} DECIMAL(65, 2), {_logs['cash_out']} DECIMAL(65, 2), {_logs['cash_type']} TEXT, {_logs['cash_type_before_bal']} DECIMAL(65, 2), {_logs['cash_type_after_bal']} DECIMAL(65, 2), {_logs['total_funds_before']} DECIMAL(65, 2),{_logs['total_funds_after']} DECIMAL(65, 2), {_logs['date']} TEXT, {_logs['time']} TEXT, {_logs['note']} TEXT)"
                     Q.execute(Q_logs)
                     print(" ADDED LOGS FIELDS")
 
@@ -178,4 +180,232 @@ class Q:
         )
         _db.commit()
         print(f"\n user info added")
+        return True
+
+
+class bank:
+    def get(email):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT COUNT(id) FROM bank WHERE email = '{email}'")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def total(email):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT SUM(cash_bal) FROM bank WHERE email = '{email}'")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def id(email):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT id FROM bank WHERE email = '{email}'")
+        get_this = Q.fetchall()
+        return get_this
+
+    def bal(id):
+
+        temp = re.findall(r"\d+", str(id))
+        res = list(map(int, temp))
+
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT cash_bal FROM bank WHERE id = {int(res[0])}")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def type(id):
+
+        temp = re.findall(r"\d+", str(id))
+        res = list(map(int, temp))
+
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT cash_type FROM bank WHERE id = {int(res[0])}")
+        get_this = Q.fetchone()
+
+        return get_this[0]
+
+    def write(email, type, bal, total):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(
+            f"INSERT INTO bank (email, cash_type, cash_bal) VALUES ('{email}', '{type}','{bal}')"
+        )
+
+        now = datetime.now()
+        dt_date = now.strftime("%m/%d/%y")
+        dt_time = now.strftime("%H:%M:%S")
+
+        after = float(total) + float(bal)
+
+        Q.execute(
+            f"INSERT INTO logs (email, cash_in, cash_type_before_bal, cash_type_after_bal, cash_out, cash_type, date, time, total_funds_before, total_funds_after, note) VALUES ('{email}', '{bal}', '{bal}', '{bal}', '0', '{type}', '{dt_date}','{dt_time}', '{total}', '{after}', 'Registered a new account.')"
+        )
+        _db.commit()
+        print(f"\n account registered")
+        return True
+
+    def delete(type, email, id, bal, total):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"DELETE FROM bank WHERE id = {id}")
+
+        after = float(total) - float(bal)
+
+        now = datetime.now()
+        dt_date = now.strftime("%m/%d/%y")
+        dt_time = now.strftime("%H:%M:%S")
+
+        Q.execute(
+            f"INSERT INTO logs (email, note, date, time, total_funds_before, total_funds_after, cash_type) VALUES ('{email}', 'Unbinded an account.', '{dt_date}', '{dt_time}', '{total}', '{after}', '{type}')"
+        )
+        _db.commit()
+        return True
+
+
+class dblogs:
+    def get(email):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT COUNT(id) FROM logs WHERE email = '{email}'")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def id(email):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT id FROM logs WHERE email = '{email}'")
+        get_this = Q.fetchall()
+        return get_this
+
+    def date(id):
+
+        temp = re.findall(r"\d+", str(id))
+        res = list(map(int, temp))
+
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT date FROM logs WHERE id = {int(res[0])}")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def time(id):
+
+        temp = re.findall(r"\d+", str(id))
+        res = list(map(int, temp))
+
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT time FROM logs WHERE id = {int(res[0])}")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def note(id):
+
+        temp = re.findall(r"\d+", str(id))
+        res = list(map(int, temp))
+
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT note FROM logs WHERE id = {int(res[0])}")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def type(id):
+
+        temp = re.findall(r"\d+", str(id))
+        res = list(map(int, temp))
+
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT cash_type FROM logs WHERE id = {int(res[0])}")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def before_bal(id):
+
+        temp = re.findall(r"\d+", str(id))
+        res = list(map(int, temp))
+
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT cash_type_before_bal FROM logs WHERE id = {int(res[0])}")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def cash_in(id):
+
+        temp = re.findall(r"\d+", str(id))
+        res = list(map(int, temp))
+
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT cash_in FROM logs WHERE id = {int(res[0])}")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def cash_out(id):
+
+        temp = re.findall(r"\d+", str(id))
+        res = list(map(int, temp))
+
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT cash_out FROM logs WHERE id = {int(res[0])}")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def funds_before(id):
+
+        temp = re.findall(r"\d+", str(id))
+        res = list(map(int, temp))
+
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT total_funds_before FROM logs WHERE id = {int(res[0])}")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def funds_after(id):
+
+        temp = re.findall(r"\d+", str(id))
+        res = list(map(int, temp))
+
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT total_funds_after FROM logs WHERE id = {int(res[0])}")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+
+class transac:
+    def make(email, type, bal, cash_before, total, note, cash_out):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+
+        cash_after = float(cash_before) + float(bal) - float(cash_out)
+        print (cash_before)
+        print (bal)
+        print (cash_out)
+        print (cash_after)
+        print(email)
+        print(type)
+        Q.execute(
+            f"UPDATE bank SET cash_bal = '{cash_after}' WHERE email = '{email}' AND cash_type = '{type}'"
+        )
+
+        now = datetime.now()
+        dt_date = now.strftime("%m/%d/%y")
+        dt_time = now.strftime("%H:%M:%S")
+
+        total_after = float(total) + float(bal) - float(cash_out)
+
+        Q.execute(
+            f"INSERT INTO logs (email, cash_in, cash_type_before_bal, cash_type_after_bal, cash_out, cash_type, date, time, total_funds_before, note, total_funds_after) VALUES ('{email}', '{bal}', '{cash_before}', '{cash_after}', '{cash_out}', '{type}', '{dt_date}','{dt_time}', '{total}', '{note}', '{total_after}')"
+        )
+        _db.commit()
+        print(f"\n transaction successful")
         return True
