@@ -24,6 +24,11 @@ class error:
         tkinter.messagebox.showwarning(
             f"Username Error", f"Username already exist. Please check and try again."
         )
+    
+    def no_account():
+        tkinter.messagebox.showwarning(
+            f"Transaction Error", f"To create a transaction, you must first have a valid account. \nPlease check and try again."
+        )
 
 
 # ========= >>> success pop ups <<< =========

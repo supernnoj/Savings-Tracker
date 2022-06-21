@@ -135,6 +135,48 @@ class Q:
         Q.execute(f"SELECT username FROM user WHERE email LIKE '%{email}'")
         get_this = Q.fetchone()
         return get_this[0]
+    
+    def get_ln(email):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT lname FROM profile WHERE email LIKE '%{email}'")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def get_fn(email):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT fname FROM profile WHERE email LIKE '%{email}'")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def get_mi(email):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT mi FROM profile WHERE email LIKE '%{email}'")
+        get_this = Q.fetchone()
+        return get_this[0]
+    
+    def get_age(email):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT age FROM profile WHERE email LIKE '%{email}'")
+        get_this = Q.fetchone()
+        return get_this[0]
+
+    def get_sq(email):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT question FROM security WHERE email LIKE '%{email}'")
+        get_this = Q.fetchone()
+        return get_this[0]
+    
+    def get_dob(email):
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT birthday FROM profile WHERE email LIKE '%{email}'")
+        get_this = Q.fetchone()
+        return get_this[0]
 
     def create_user(email, user, pw):
         Q = _db.cursor()
@@ -333,6 +375,17 @@ class dblogs:
         Q = _db.cursor()
         Q.execute(f"USE userdata")
         Q.execute(f"SELECT cash_type_before_bal FROM logs WHERE id = {int(res[0])}")
+        get_this = Q.fetchone()
+        return get_this[0]
+    
+    def after_bal(id):
+
+        temp = re.findall(r"\d+", str(id))
+        res = list(map(int, temp))
+
+        Q = _db.cursor()
+        Q.execute(f"USE userdata")
+        Q.execute(f"SELECT cash_type_after_bal FROM logs WHERE id = {int(res[0])}")
         get_this = Q.fetchone()
         return get_this[0]
 
