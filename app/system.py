@@ -29,6 +29,16 @@ class error:
         tkinter.messagebox.showwarning(
             f"Transaction Error", f"To create a transaction, you must first have a valid account. \nPlease check and try again."
         )
+    
+    def delete():
+        tkinter.messagebox.showwarning(
+            f"Unbind Error", f"To unbind an account, you must first have a valid account. \nPlease check and try again."
+        )
+
+    def not_email():
+        tkinter.messagebox.showwarning(
+            f"Email Error", f"Not a valid email address. Please check and try again."
+    )
 
 
 # ========= >>> success pop ups <<< =========

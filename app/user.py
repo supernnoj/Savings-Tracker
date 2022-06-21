@@ -13,14 +13,13 @@ goto_home = True
 
 class user:
     def welcome():
-
         def detailed_view(root):
 
             detailed = Toplevel(root)
             detailed.geometry(f"700x520")
             detailed.title("Detailed Logs")
             detailed.resizable(False, False)
-            #detailed.configure(bg=f"#4152B3")
+            # detailed.configure(bg=f"#4152B3")
 
             scrollbarx = Scrollbar(detailed, orient=HORIZONTAL)
             scrollbary = Scrollbar(detailed, orient=VERTICAL)
@@ -53,16 +52,16 @@ class user:
             )
 
             tree.heading("#0", text="ID", anchor=W)
-            tree.heading("#1", text='Date', anchor=W)
-            tree.heading("#2", text='Time', anchor=W)
-            tree.heading("#3", text='Note', anchor=W)
-            tree.heading("#4", text='Account Used', anchor=W)
-            tree.heading("#5", text='Cash In', anchor=W)
-            tree.heading("#6", text='Cash Out', anchor=W)
-            tree.heading("#7", text='Account Balance Before', anchor=W)
-            tree.heading("#8", text='Account Balance After', anchor=W)
-            tree.heading("#9", text='Total Funds Before', anchor=W)
-            tree.heading("#10", text='Total Funds After', anchor=W)
+            tree.heading("#1", text="Date", anchor=W)
+            tree.heading("#2", text="Time", anchor=W)
+            tree.heading("#3", text="Note", anchor=W)
+            tree.heading("#4", text="Account Used", anchor=W)
+            tree.heading("#5", text="Cash In", anchor=W)
+            tree.heading("#6", text="Cash Out", anchor=W)
+            tree.heading("#7", text="Account Balance Before", anchor=W)
+            tree.heading("#8", text="Account Balance After", anchor=W)
+            tree.heading("#9", text="Total Funds Before", anchor=W)
+            tree.heading("#10", text="Total Funds After", anchor=W)
 
             tree.column("#0", stretch=NO, minwidth=25, width=50)
             tree.column("#1", stretch=NO, minwidth=0, width=100)
@@ -71,8 +70,8 @@ class user:
             tree.column("#4", stretch=NO, minwidth=0, width=150)
             tree.column("#5", stretch=NO, minwidth=0, width=100)
             tree.column("#6", stretch=NO, minwidth=0, width=100)
-            tree.column("#7", stretch=NO, minwidth=0, width=150)
-            tree.column("#8", stretch=NO, minwidth=0, width=150)
+            tree.column("#7", stretch=NO, minwidth=0, width=180)
+            tree.column("#8", stretch=NO, minwidth=0, width=180)
             tree.column("#9", stretch=NO, minwidth=0, width=150)
             tree.column("#10", stretch=NO, minwidth=0, width=150)
 
@@ -81,9 +80,27 @@ class user:
                 entry_id = 0
                 for x in get_id:
                     entry_id = entry_id + 1
-                    tree.insert(parent='', index=0, text=entry_id, values=(f"{dblogs.date(x)}", f"{dblogs.time(x)}", f"{dblogs.note(x)}", f"{dblogs.type(x)}", f"{dblogs.cash_in(x)}",f"{dblogs.cash_out(x)}", f"{dblogs.before_bal(x)}", f"{dblogs.after_bal(x)}", f"{dblogs.funds_before(x)}", f"{dblogs.funds_after(x)}",))
+                    tree.insert(
+                        parent="",
+                        index=0,
+                        text=entry_id,
+                        values=(
+                            f"{dblogs.date(x)}",
+                            f"{dblogs.time(x)}",
+                            f"{dblogs.note(x)}",
+                            f"{dblogs.type(x)}",
+                            f"{dblogs.cash_in(x)}",
+                            f"{dblogs.cash_out(x)}",
+                            f"{dblogs.before_bal(x)}",
+                            f"{dblogs.after_bal(x)}",
+                            f"{dblogs.funds_before(x)}",
+                            f"{dblogs.funds_after(x)}",
+                        ),
+                    )
             else:
-                tree.insert(parent='', index=0, text='No', values=("Records", "to be", "shown."))
+                tree.insert(
+                    parent="", index=0, text="No", values=("Records", "to be", "shown.")
+                )
 
             detailed.mainloop()
 
@@ -143,7 +160,6 @@ class user:
             )
             efn.pack(side=TOP, pady=5)
 
-
             space2 = Label(center, text="", bg=lbg, font=("Calibri", 3)).pack(side=TOP)
             lmi = Label(center, text="Email", bg=lbg, fg=lfg, font=lfont)
             lmi.pack(side=TOP)
@@ -173,9 +189,7 @@ class user:
             eln.pack(side=TOP, pady=5)
 
             space2 = Label(center, text="", bg=lbg, font=("Calibri", 3)).pack(side=TOP)
-            ldob = Label(
-                center, text="Age", bg=lbg, fg=lfg, font=lfont
-            )
+            ldob = Label(center, text="Age", bg=lbg, fg=lfg, font=lfont)
             ldob.pack(side=TOP)
             edob = customtkinter.CTkLabel(
                 center,
@@ -189,7 +203,9 @@ class user:
             edob.pack(side=TOP, pady=5)
 
             space2 = Label(center, text="", bg=lbg, font=("Calibri", 3)).pack(side=TOP)
-            lsq = Label(center, text="Date of Birth (MM-DD-YYYY)", bg=lbg, fg=lfg, font=lfont)
+            lsq = Label(
+                center, text="Date of Birth (MM-DD-YYYY)", bg=lbg, fg=lfg, font=lfont
+            )
             lsq.pack(side=TOP)
             esq = customtkinter.CTkLabel(
                 center,
@@ -203,9 +219,7 @@ class user:
             esq.pack(side=TOP, pady=5)
             # ========= >>> answer question label <<< =========
             space2 = Label(center, text="", bg=lbg, font=("Calibri", 3)).pack(side=TOP)
-            laq = Label(
-                center, text="Security Question", bg=lbg, fg=lfg, font=lfont
-            )
+            laq = Label(center, text="Security Question", bg=lbg, fg=lfg, font=lfont)
             laq.pack(side=TOP)
             # ========= >>> field for answer entry <<< =========
             eaq = customtkinter.CTkLabel(
@@ -226,6 +240,7 @@ class user:
             main.pack_propagate(False)
 
             view.mainloop()
+
         def make_transac():
 
             w = 450
@@ -678,9 +693,7 @@ class user:
                         total = float(0.00)
                     else:
                         total = bank.total(Q.get_active())
-                    if bank.write(
-                        Q.get_active(), efn.get(), emi.get(), total
-                    ):
+                    if bank.write(Q.get_active(), efn.get(), emi.get(), total):
                         if success.add_acc():
                             root.destroy()
                             global goto_home
@@ -782,7 +795,7 @@ class user:
                 hover_color=f"#6595D4",
                 bg_color=dark_blue,
                 corner_radius=5,
-                command=lambda: view()
+                command=lambda: view(),
             )
             # button_1.grid(row=2, column=0, pady=10, padx=20)
             button_1.pack(side=TOP, pady=10, padx=20)
@@ -855,7 +868,7 @@ class user:
             label_info_1.grid(column=0, row=0, sticky="w", padx=15, pady=5)
 
             if bank.get(Q.get_active()) == 0:
-                current_total = f'0.00'
+                current_total = f"0.00"
             else:
                 current_total = bank.total(Q.get_active())
 
@@ -956,8 +969,11 @@ class user:
                 add()
 
             def click_del():
-                root.destroy()
-                delete()
+                if bank.get(Q.get_active()) == 0:
+                    error.delete()
+                else:
+                    root.destroy()
+                    delete()
 
             def click_transac():
                 if bank.get(Q.get_active()) == 0:
@@ -970,7 +986,7 @@ class user:
                 master=frame_right,
                 height=25,
                 text="Add Account",
-                text_color=f'white',
+                text_color=f"white",
                 fg_color=light_blue,
                 hover_color=f"#6595D4",
                 corner_radius=5,
@@ -985,11 +1001,11 @@ class user:
                 master=root,
                 height=25,
                 text="Remove Account",
-                #border_width=2,
-                #border_color=red,
-                text_color=f'white',
-                #text_color=red,
-                #fg_color=f"white",
+                # border_width=2,
+                # border_color=red,
+                text_color=f"white",
+                # text_color=red,
+                # fg_color=f"white",
                 fg_color=red,
                 bg_color=f"white",
                 hover_color=f"#6595D4",
@@ -1003,11 +1019,11 @@ class user:
                 master=root,
                 height=25,
                 text="Make Transaction",
-                #border_width=2,
-                #border_color=green,
-                #text_color=green,
-                text_color=f'white',
-                #fg_color=f"white",
+                # border_width=2,
+                # border_color=green,
+                # text_color=green,
+                text_color=f"white",
+                # fg_color=f"white",
                 fg_color=green,
                 bg_color=f"white",
                 hover_color=f"#6595D4",
@@ -1024,12 +1040,12 @@ class user:
                 master=root,
                 height=25,
                 text="Detailed Logs",
-                #border_width=2,
-                #border_color=green,
-                #text_color=green,
-                text_color=f'white',
-                #fg_color=f"white",
-                fg_color=f'#0c0c04',
+                # border_width=2,
+                # border_color=green,
+                # text_color=green,
+                text_color=f"white",
+                # fg_color=f"white",
+                fg_color=f"#0c0c04",
                 bg_color=f"white",
                 hover_color=f"#6595D4",
                 corner_radius=5,
@@ -1061,7 +1077,7 @@ class user:
                 fg_color=f"#4152B3",
                 # bg_color=f"white",
                 hover_color=f"#FF4545",
-                command=lambda: root.destroy()
+                command=lambda: root.destroy(),
             )
             button_5.grid(row=8, column=2, columnspan=1, pady=20, padx=20, sticky="we")
 
@@ -1072,4 +1088,4 @@ class user:
             goto_home = False
             home()
 
-    #welcome()
+    # welcome()

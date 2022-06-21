@@ -3,6 +3,7 @@ from database import *
 from customtkinter import *
 from system import *
 import customtkinter
+import re
 
 # >>> global var <<<
 app_landing_process_done = False
@@ -119,22 +120,26 @@ class app:
                     ):
                         error.empty()
                     else:
-                        if Q.verify_user(userfield.get()) or Q.verify_email(
-                            emailfield.get()
-                        ):
-                            if Q.verify_user(userfield.get()):
-                                error.user_exist()
-                            if Q.verify_email(emailfield.get()):
-                                error.email_exist()
-                        else:
-                            if pwfield.get() == cpwfield.get():
-                                if Q.create_user(
-                                    emailfield.get(), userfield.get(), pwfield.get()
-                                ):
-                                    create.destroy()
-                                    success.user_added()
+                        regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+                        if (re.fullmatch(regex, emailfield.get())):
+                            if Q.verify_user(userfield.get()) or Q.verify_email(
+                                emailfield.get()
+                            ):
+                                if Q.verify_user(userfield.get()):
+                                    error.user_exist()
+                                if Q.verify_email(emailfield.get()):
+                                    error.email_exist()
                             else:
-                                error.password()
+                                if pwfield.get() == cpwfield.get():
+                                    if Q.create_user(
+                                        emailfield.get(), userfield.get(), pwfield.get()
+                                    ):
+                                        create.destroy()
+                                        success.user_added()
+                                else:
+                                    error.password()
+                        else:
+                            error.not_email()
 
                 btn = customtkinter.CTkButton(
                     create,
